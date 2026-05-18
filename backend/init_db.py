@@ -88,18 +88,20 @@ def init_database():
         db.session.add(floor)
         db.session.commit()
         
-        # Generowanie 10 stolików o zróżnicowanych koordynatach
+        # Generowanie 12 stolików (zgodnie z oryginalnym planem sali)
         tables_data = [
-            {"num": 1, "cap": 4, "shape": "rectangle", "x": 100, "y": 100, "label": "Przy Oknie 1"},
-            {"num": 2, "cap": 2, "shape": "circle", "x": 300, "y": 100, "label": "Środek 1"},
-            {"num": 3, "cap": 4, "shape": "rectangle", "x": 500, "y": 100, "label": "Przy Oknie 2"},
-            {"num": 4, "cap": 6, "shape": "rectangle", "x": 100, "y": 250, "label": "Duży 1"},
-            {"num": 5, "cap": 8, "shape": "rectangle", "x": 350, "y": 250, "label": "Bankietowy"},
-            {"num": 6, "cap": 2, "shape": "circle", "x": 650, "y": 250, "label": "Środek 2"},
-            {"num": 7, "cap": 4, "shape": "rectangle", "x": 100, "y": 420, "label": "Przy Wejściu 1"},
-            {"num": 8, "cap": 2, "shape": "circle", "x": 300, "y": 420, "label": "Środek 3"},
-            {"num": 9, "cap": 4, "shape": "rectangle", "x": 500, "y": 420, "label": "Przy Wejściu 2"},
-            {"num": 10, "cap": 6, "shape": "rectangle", "x": 650, "y": 420, "label": "Duży 2"}
+            {"num": 1, "cap": 4, "shape": "rectangle", "x": 300, "y": 100, "label": "1"},
+            {"num": 2, "cap": 4, "shape": "circle", "x": 100, "y": 100, "label": "2"},
+            {"num": 3, "cap": 2, "shape": "circle", "x": 100, "y": 250, "label": "3"},
+            {"num": 4, "cap": 2, "shape": "circle", "x": 100, "y": 400, "label": "4"},
+            {"num": 5, "cap": 4, "shape": "circle", "x": 100, "y": 550, "label": "5"},
+            {"num": 6, "cap": 6, "shape": "rectangle", "x": 650, "y": 550, "label": "6"},
+            {"num": 7, "cap": 8, "shape": "rectangle", "x": 650, "y": 350, "label": "7"},
+            {"num": 8, "cap": 4, "shape": "circle", "x": 650, "y": 100, "label": "8"},
+            {"num": 9, "cap": 4, "shape": "rectangle", "x": 500, "y": 100, "label": "9"},
+            {"num": 10, "cap": 2, "shape": "circle", "x": 250, "y": 250, "label": "Przy barze"},
+            {"num": 11, "cap": 2, "shape": "circle", "x": 250, "y": 350, "label": "Przy barze"},
+            {"num": 12, "cap": 2, "shape": "circle", "x": 250, "y": 450, "label": "Przy barze"}
         ]
         
         tables_list = []
@@ -116,7 +118,7 @@ def init_database():
             db.session.add(t)
             tables_list.append(t)
         db.session.commit()
-        print("-> Wygenerowano 10 stolików.")
+        print("-> Wygenerowano 12 stolików.")
         
         # 4. Generowanie Polskich Klientów (60 rekordów)
         first_names_m = ["Jan", "Piotr", "Paweł", "Krzysztof", "Tomasz", "Andrzej", "Michał", "Marcin", "Jakub", "Adam", "Łukasz", "Grzegorz", "Wojciech", "Mariusz", "Dariusz"]
@@ -145,11 +147,11 @@ def init_database():
         db.session.commit()
         print("-> Wygenerowano 60 unikalnych klientów.")
         
-        # 5. Generowanie Rezerwacji (160 rekordów dla całego roku 2026)
-        start_date = date(2026, 1, 1)
+        # 5. Generowanie Rezerwacji (160 rekordów dla dwóch miesięcy: Maj i Czerwiec 2026)
+        start_date = date(2026, 5, 1)
         
         for i in range(160):
-            delta_days = random.randint(0, 360)
+            delta_days = random.randint(0, 60) # Od 1 maja do 30 czerwca (60 dni)
             res_date = start_date + timedelta(days=delta_days)
             
             # Dobór statusów na podstawie daty (historyczne/obecne/przyszłe)
